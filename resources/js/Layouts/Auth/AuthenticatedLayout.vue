@@ -1,11 +1,11 @@
 <script setup>
-import { ref } from 'vue';
+import {ref} from 'vue';
 import ApplicationLogo from '@/Components/Auth/ApplicationLogo.vue';
 import Dropdown from '@/Components/Auth/Dropdown.vue';
 import DropdownLink from '@/Components/Auth/DropdownLink.vue';
 import NavLink from '@/Components/Auth/NavLink.vue';
 import ResponsiveNavLink from '@/Components/Auth/ResponsiveNavLink.vue';
-import { Link } from '@inertiajs/vue3';
+import {Link} from '@inertiajs/vue3';
 
 const showingNavigationDropdown = ref(false);
 </script>
@@ -20,7 +20,7 @@ const showingNavigationDropdown = ref(false);
                         <div class="flex">
                             <!-- Logo -->
                             <div class="shrink-0 flex items-center">
-                                <Link :href="route('dashboard')">
+                                <Link :href="route('welcome')">
                                     <ApplicationLogo
                                         class="block h-9 w-auto fill-current text-gray-800"
                                     />
@@ -29,8 +29,13 @@ const showingNavigationDropdown = ref(false);
 
                             <!-- Navigation Links -->
                             <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                                <NavLink :href="route('dashboard')" :active="route().current('dashboard')">
-                                    Dashboard
+                                <NavLink :href="route('dashboard')" >
+                                    Home page
+                                </NavLink>
+                            </div>
+                            <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                                <NavLink :href="route('courses.index')" >
+                                    Courses
                                 </NavLink>
                             </div>
                         </div>
@@ -145,7 +150,22 @@ const showingNavigationDropdown = ref(false);
 
             <!-- Page Content -->
             <main>
-                <slot />
+                <div class="py-12">
+                    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                        <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                            <div class="p-6 text-gray-900">
+                                <div class="overflow-x-auto">
+                                    <div class="overflow-x-auto">
+                                        <div>
+                                            <slot />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </main>
         </div>
     </div>

@@ -1,6 +1,11 @@
 <script setup>
 import {Head} from '@inertiajs/vue3';
 import AuthenticatedLayout from "@/Layouts/Auth/AuthenticatedLayout.vue";
+import CoursesList from "@/Components/Dashboard/CoursesList.vue";
+
+defineProps({
+    courses: Object,
+});
 </script>
 
 <template>
@@ -8,9 +13,12 @@ import AuthenticatedLayout from "@/Layouts/Auth/AuthenticatedLayout.vue";
         <title>Seletra: Self-learning</title>
         <meta name="description" content="Your page description">
     </Head>
-
     <AuthenticatedLayout>
-        <h2> Общая информация </h2>
+        <CoursesList :courses="courses" />
     </AuthenticatedLayout>
 
 </template>
+
+<style scoped>
+
+</style>
