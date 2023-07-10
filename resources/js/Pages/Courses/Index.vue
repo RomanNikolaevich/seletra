@@ -1,7 +1,7 @@
 <script setup>
 import {Head} from '@inertiajs/vue3';
 import AuthenticatedLayout from "@/Layouts/Auth/AuthenticatedLayout.vue";
-import CoursesList from "@/Components/Dashboard/CoursesList.vue";
+import IndexCoursesList from "@/Pages/Courses/Partials/IndexCoursesList.vue";
 
 defineProps({
     courses: Object,
@@ -14,6 +14,6 @@ defineProps({
         <meta name="description" content="Your page description">
     </Head>
     <AuthenticatedLayout>
-        <CoursesList :courses="courses" />
+        <IndexCoursesList :courses="courses" />
     </AuthenticatedLayout>
 </template>

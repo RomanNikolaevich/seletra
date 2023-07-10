@@ -1,5 +1,5 @@
 <script setup>
-import CourseItem from "@/Components/Dashboard/CourseItem.vue";
+import IndexCourseItem from "@/Pages/Courses/Partials/IndexCourseItem.vue";
 
 defineProps({
     courses: Object,
@@ -16,7 +16,7 @@ defineProps({
         <h2 class="text-2xl font-bold py-10 text-center">Read latest courses</h2>
 
         <div class="flex ..." v-for="course in courses" :key="course.id">
-            <CourseItem :course="course"/>
+            <IndexCourseItem :course="course"/>
         </div>
 
     </div>

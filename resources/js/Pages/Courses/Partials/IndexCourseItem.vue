@@ -1,8 +1,8 @@
 <script setup>
 import {Link} from "@inertiajs/vue3";
-import CourseItemSummary from "@/Components/Dashboard/CourseItemSummary.vue";
+import IndexCourseItemSummary from "@/Pages/Courses/Partials/IndexCourseItemSummary.vue";
 import CourseType from "@/Components/Dashboard/CourseType.vue";
-import CourseItemBody from "@/Components/Dashboard/CourseItemBody.vue";
+import IndexCourseItemBody from "@/Pages/Courses/Partials/IndexCourseItemBody.vue";
 
 defineProps({
     course: Object,
@@ -24,11 +24,11 @@ const formatDateTime = (dateTime) => {
 
 <template>
     <details class="collapse mb-2">
-        <CourseItemSummary :course="course">
+        <IndexCourseItemSummary :course="course">
             <CourseType :courseType="course.type"/>
             {{ course.name }}
-        </CourseItemSummary>
-        <CourseItemBody :course="course">
+        </IndexCourseItemSummary>
+        <IndexCourseItemBody :course="course">
             <p>
                 <span class="font-extrabold">Description: </span> {{ course.description }}
             </p>
@@ -47,7 +47,7 @@ const formatDateTime = (dateTime) => {
                 </Link>
             </p>
 
-        </CourseItemBody>
+        </IndexCourseItemBody>
         <div class="collapse-content">
 
         </div>
