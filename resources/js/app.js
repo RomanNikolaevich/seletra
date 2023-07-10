@@ -8,22 +8,23 @@ import {ZiggyVue} from '../../vendor/tightenco/ziggy/dist/vue.m';
 import {library} from '@fortawesome/fontawesome-svg-core'
 import {FontAwesomeIcon} from '@fortawesome/vue-fontawesome'
 import {
+    faBars,
     faBook,
     faBookOpenReader, faBuildingColumns,
-    faChalkboardUser, faHeartPulse,
+    faChalkboardUser, faCircleInfo, faEllipsisVertical, faHeartPulse,
     faLaptopFile,
     faMicrophone,
     faMobileScreen, faPeopleArrows, faPeopleGroup, faPersonBurst,
-    faPlay,
+    faPlay, faStar,
     faStop, faUserGear,
 } from '@fortawesome/free-solid-svg-icons'
-import {faComments, faPenToSquare} from "@fortawesome/free-regular-svg-icons";
-import {faYoutube} from "@fortawesome/free-brands-svg-icons";
+import {faComments, faPenToSquare, } from "@fortawesome/free-regular-svg-icons";
+import {faYoutube } from "@fortawesome/free-brands-svg-icons";
 
 /* add icons to the library */
 library.add(faPlay, faStop, faPenToSquare, faChalkboardUser, faLaptopFile, faMobileScreen, faMicrophone, faYoutube,
     faBookOpenReader, faBuildingColumns, faBook, faPeopleArrows, faComments, faPeopleGroup, faUserGear, faPersonBurst,
-    faHeartPulse,);
+    faHeartPulse, faBars, faEllipsisVertical, faCircleInfo, faStar);
 
 
 

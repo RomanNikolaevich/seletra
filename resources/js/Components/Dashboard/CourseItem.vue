@@ -1,5 +1,8 @@
 <script setup>
+import {Link} from "@inertiajs/vue3";
+import CourseItemSummary from "@/Components/Dashboard/CourseItemSummary.vue";
 import CourseType from "@/Components/Dashboard/CourseType.vue";
+import CourseItemBody from "@/Components/Dashboard/CourseItemBody.vue";
 
 defineProps({
     course: Object,
@@ -14,27 +17,39 @@ const formatDateTime = (dateTime) => {
         minute: "numeric",
         second: "numeric",
     };
-    const formattedDateTime = new Date(dateTime).toLocaleString(undefined, options);
-    return formattedDateTime;
+    return new Date(dateTime).toLocaleString(undefined, options);
 };
 
 </script>
 
 <template>
-    <details class="collapse bg-base-200">
-        <summary class="collapse-title text-xl font-semibold to-blue-700 hover:text-indigo-800"><CourseType :courseType="course.type" /> {{ course.name }}</summary>
-        <div class="collapse-content" >
-            <p>id: {{ course.id }}, Name:{{ course.name }}</p>
-            <p>description: {{ course.description }} </p>
-            <p>Link: {{ course.link }}</p>
-            <p>Status: {{ course.status }}, created: {{ formatDateTime(course.created_at) }}</p>
+    <details class="collapse mb-2">
+        <CourseItemSummary :course="course">
+            <CourseType :courseType="course.type"/>
+            {{ course.name }}
+        </CourseItemSummary>
+        <CourseItemBody :course="course">
+            <p>
+                <span class="font-extrabold">Description: </span> {{ course.description }}
+            </p>
+            <p>
+                <span class="font-extrabold">Created: </span>{{ formatDateTime(course.created_at) }}
+            </p>
+            <p>
+                <Link v-if="course.status === 1 || course.status === 2 || course.status === 3"
+                      :href="route('courses.show', { id: course.id })"
+                      class="font-semibold text-indigo-700  hover:text-indigo-900"
+                >Read more ...
+                </Link>
+                <Link v-else :href="route('courses.show', { id: course.id })"
+                      class="font-semibold text-white hover:text-gray-200"
+                ><span class="font-extrabold">Read more ... </span>
+                </Link>
+            </p>
+
+        </CourseItemBody>
+        <div class="collapse-content">
+
         </div>
     </details>
-    <div>
-
-    </div>
 </template>
-
-<style scoped>
-
-</style>

@@ -16,9 +16,4 @@ defineProps({
     <AuthenticatedLayout>
         <CoursesList :courses="courses" />
     </AuthenticatedLayout>
-
 </template>
-
-<style scoped>
-
-</style>

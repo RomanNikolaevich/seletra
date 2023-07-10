@@ -18,11 +18,10 @@ class CourseFactory extends Factory
             'name' => $this->faker->sentence,
             'link' => $this->faker->url,
             'description' => $this->faker->paragraph,
-            'status' => $this->faker->numberBetween(0, 5),
-            'type' => $this->faker->numberBetween(0, 13),
+            'status' => $this->faker->numberBetween(1, 6),
+            'type' => $this->faker->numberBetween(1, 16),
             'favorites' => $this->faker->boolean,
-            'image' => $this->faker->imageUrl(),
-            //'category_id' => 1, // замените на фактическое значение категории
+            'category_id' => $this->faker->numberBetween(1, 30),
         ];
     }
 }

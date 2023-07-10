@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Course;
+use App\Models\CourseCategory;
+use App\Models\CourseType;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -10,13 +13,22 @@ use Inertia\Response;
 
 class CourseController extends Controller
 {
+    private Collection $courseTypes;
+    private Collection $courseCategories;
+
+    public function __construct()
+    {
+        $this->courseTypes = CourseType::all();
+        $this->courseCategories = CourseCategory::all();
+    }
+
     /**
      * Displaying a List of Courses
      * @return Response
      */
     public function index()
     {
-        $courses = Course::all();
+        $courses = Course::latest()->get();
 
         return Inertia::render('Courses/Index', [
             'courses' => $courses,
@@ -29,18 +41,21 @@ class CourseController extends Controller
      */
     public function create()
     {
-        return Inertia::render('Courses/Create');
+        return Inertia::render('Courses/Create', [
+            'courseTypes' => $this->courseTypes,
+            'courseCategories' => $this->courseCategories,
+        ]);
     }
 
     /**
-     * Saving the course
+     * Saving the course and redirect
      * @param Request $request
      * @return RedirectResponse
      */
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required',
+            'name_en' => 'required',
             'link' => 'required',
         ]);
 
@@ -56,8 +71,15 @@ class CourseController extends Controller
      */
     public function show(Course $course)
     {
+        $category = $course->category()->first();
+        $courseType = $course->courseType()->first();
+        $courseStatus = $course->courseStatus()->first();
+
         return Inertia::render('Courses/Show', [
             'course' => $course,
+            'category' => $category,
+            'courseType' => $courseType,
+            'courseStatus' => $courseStatus,
         ]);
     }
 

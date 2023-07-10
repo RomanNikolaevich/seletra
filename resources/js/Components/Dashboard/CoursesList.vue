@@ -13,15 +13,12 @@ defineProps({
         <h1 class="text-white font-bold text-4xl">Список доступных курсов</h1>
     </header>
     <div class="container mx-auto ">
-        <h2 class="text-2xl font-bold py-10 text-center">Read our latest articles</h2>
+        <h2 class="text-2xl font-bold py-10 text-center">Read latest courses</h2>
 
-        <div v-for="course in courses" :key="course.id">
+        <div class="flex ..." v-for="course in courses" :key="course.id">
             <CourseItem :course="course"/>
         </div>
+
     </div>
 
 </template>
-
-<style scoped>
-
-</style>
