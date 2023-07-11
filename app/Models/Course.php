@@ -10,7 +10,18 @@ class Course extends Model
 {
     use HasFactory;
 
-    public function category(): BelongsTo
+    protected $fillable = [
+        'name',
+        'link',
+        'description',
+        'status',
+        'completion_at',
+        'category'
+    ];
+
+    protected $casts = ['favorites' => 'boolean'];
+
+    public function courseCategory(): BelongsTo
     {
         return $this->belongsTo(CourseCategory::class);
     }

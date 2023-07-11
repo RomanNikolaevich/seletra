@@ -59,7 +59,13 @@ class CourseController extends Controller
             'link' => 'required',
         ]);
 
-        Course::create($request->all());
+        Course::create([
+            'name' => $request->input('name'),
+            'link' => $request->input('link'),
+            'description' => $request->input('description'),
+            'type' => $request->input('courseType'),
+            'category' => $request->input('courseCategories'),
+        ]);
 
         return redirect()->route('courses.index');
     }
@@ -71,7 +77,7 @@ class CourseController extends Controller
      */
     public function show(Course $course)
     {
-        $category = $course->category()->first();
+        $category = $course->courseCategory()->first();
         $courseType = $course->courseType()->first();
         $courseStatus = $course->courseStatus()->first();
 

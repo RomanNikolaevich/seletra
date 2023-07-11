@@ -19,7 +19,7 @@ return new class extends Migration {
             $table->integer('type')->default(1);
             $table->boolean('favorites')->default(0);
             $table->dateTime('completion_at')->nullable();
-            $table->integer('category_id')->default(1);
+            $table->integer('category')->default(1);
             $table->timestamps();
         });
     }
