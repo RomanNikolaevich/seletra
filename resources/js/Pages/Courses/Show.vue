@@ -7,7 +7,7 @@ import CourseStatusComponent from "@/Components/Dashboard/CourseStatus.vue";
 
 defineProps({
     course: Object,
-    category: Object,
+    courseCategory: Object,
     courseType: Object,
     courseStatus: Object,
 });
@@ -23,8 +23,6 @@ const formatDateTime = (dateTime) => {
     };
     return new Date(dateTime).toLocaleString(undefined, options);
 };
-
-
 </script>
 
 
@@ -66,18 +64,18 @@ const formatDateTime = (dateTime) => {
             <div class="flex-grow w-full sm:w-1/2 md:w-1/2 lg:w-1/2 xl:w-1/2 p-2 mb-2">
                 <div class="bg-white rounded-lg shadow-md h-full">
                     <span class="font-bold text-blue-700">Category:  </span>
-                    <span class="font-medium">{{ category.name_en }} </span>
+                    <span class="font-medium">{{ courseCategory.name_en }} </span>
                 </div>
             </div>
             <div class="flex-grow w-full sm:w-1/2 md:w-1/2 lg:w-1/2 xl:w-1/2 p-2 mb-2">
                 <div class="bg-white rounded-lg shadow-md h-full">
                     <span class="font-bold text-blue-700">Subcategory:  </span>
-<!--                    <template v-if="">-->
-<!--                        <span class="font-medium"></span>-->
-<!--                    </template>-->
-<!--                    <template v-else>-->
-<!--                        <span class="font-medium">No subcategory available</span>-->
-<!--                    </template>-->
+                    <!--                    <template v-if="">-->
+                    <!--                        <span class="font-medium"></span>-->
+                    <!--                    </template>-->
+                    <!--                    <template v-else>-->
+                    <!--                        <span class="font-medium">No subcategory available</span>-->
+                    <!--                    </template>-->
                 </div>
             </div>
 
@@ -98,7 +96,7 @@ const formatDateTime = (dateTime) => {
                     <span class="font-medium">
                         <CourseStatusComponent :courseStatus="courseStatus"/>
                     </span>
-<!--                    <button class="px-4 py-2 rounded-md bg-blue-500 text-white ml-2">Change status</button>-->
+                    <!--                    <button class="px-4 py-2 rounded-md bg-blue-500 text-white ml-2">Change status</button>-->
                 </div>
             </div>
 
@@ -148,7 +146,7 @@ const formatDateTime = (dateTime) => {
                 <div class="bg-white rounded-lg shadow-md h-full">
                     <span class="font-bold text-blue-700">Training timer: </span>
                     <span class="font-medium"> {{ }}</span>
-<!--                    <button class="px-4 py-2 rounded-md bg-blue-700 text-white">Start/Stop</button>-->
+                    <!--                    <button class="px-4 py-2 rounded-md bg-blue-700 text-white">Start/Stop</button>-->
                 </div>
             </div>
             <div class="flex-grow w-full sm:w-1/2 md:w-1/2 lg:w-1/2 xl:w-1/2 p-2 mb-2">
@@ -169,7 +167,7 @@ const formatDateTime = (dateTime) => {
 
                     <template v-if="course.favorites === 0">
                         <span class="font-bold text-blue-700">Not added to favorites: </span>
-                            <input type="checkbox" class="form-checkbox mr-2"/>
+                        <input type="checkbox" class="form-checkbox mr-2"/>
                     </template>
                     <template v-else>
                         <span class="font-bold text-blue-700">Was added to favorites: </span>

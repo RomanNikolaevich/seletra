@@ -16,14 +16,15 @@ class Course extends Model
         'description',
         'status',
         'completion_at',
-        'category'
+        'category',
+        'type',
     ];
 
     protected $casts = ['favorites' => 'boolean'];
 
     public function courseCategory(): BelongsTo
     {
-        return $this->belongsTo(CourseCategory::class);
+        return $this->belongsTo(CourseCategory::class, 'category', 'id');
     }
 
     public function courseType(): BelongsTo

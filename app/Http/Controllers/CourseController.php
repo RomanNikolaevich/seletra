@@ -55,7 +55,7 @@ class CourseController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name_en' => 'required',
+            'name' => 'required',
             'link' => 'required',
         ]);
 
@@ -63,7 +63,7 @@ class CourseController extends Controller
             'name' => $request->input('name'),
             'link' => $request->input('link'),
             'description' => $request->input('description'),
-            'type' => $request->input('courseType'),
+            'type' => $request->input('courseTypes'),
             'category' => $request->input('courseCategories'),
         ]);
 
@@ -77,13 +77,13 @@ class CourseController extends Controller
      */
     public function show(Course $course)
     {
-        $category = $course->courseCategory()->first();
+        $courseCategory = $course->courseCategory()->first();
         $courseType = $course->courseType()->first();
         $courseStatus = $course->courseStatus()->first();
 
         return Inertia::render('Courses/Show', [
             'course' => $course,
-            'category' => $category,
+            'courseCategory' => $courseCategory,
             'courseType' => $courseType,
             'courseStatus' => $courseStatus,
         ]);
