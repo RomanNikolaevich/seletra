@@ -16,13 +16,13 @@ import {
     faMicrophone,
     faMobileScreen, faPeopleArrows, faPeopleGroup, faPersonBurst,
     faPlay, faStar,
-    faStop, faUserGear,
+    faStop, faTv, faUserGear,
 } from '@fortawesome/free-solid-svg-icons'
 import {faComments, faPenToSquare, } from "@fortawesome/free-regular-svg-icons";
 import {faYoutube } from "@fortawesome/free-brands-svg-icons";
 
 /* add icons to the library */
-library.add(faPlay, faStop, faPenToSquare, faChalkboardUser, faLaptopFile, faMobileScreen, faMicrophone, faYoutube,
+library.add(faPlay, faStop, faPenToSquare, faChalkboardUser, faLaptopFile, faMobileScreen, faMicrophone, faYoutube, faTv,
     faBookOpenReader, faBuildingColumns, faBook, faPeopleArrows, faComments, faPeopleGroup, faUserGear, faPersonBurst,
     faHeartPulse, faBars, faEllipsisVertical, faCircleInfo, faStar);
 
