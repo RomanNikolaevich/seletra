@@ -98,7 +98,7 @@ const submit = () => {
                         v-model="form.courseTypes"
                         required
                 >
-                    <option disabled selected>Choose course category</option>
+                    <option disabled selected value="">Choose course category</option>
                     <option v-for="type in courseTypes"
                             :key="type.id"
                             :value="type.id"
@@ -118,7 +118,7 @@ const submit = () => {
                         v-model="form.courseCategories"
                         required
                 >
-                    <option disabled selected>Choose course category</option>
+                    <option disabled selected value="">Choose course category</option>
                     <option v-for="category in courseCategories"
                             :key="category.id"
                             :value="category.id"
