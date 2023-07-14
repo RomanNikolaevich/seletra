@@ -98,6 +98,8 @@ class CourseController extends Controller
     {
         return Inertia::render('Courses/Edit', [
             'course' => $course,
+            'courseTypes' => $this->courseTypes,
+            'courseCategories' => $this->courseCategories,
         ]);
     }
 
@@ -116,7 +118,7 @@ class CourseController extends Controller
 
         $course->update($request->all());
 
-        return redirect()->route('courses.index');
+        return redirect()->route('courses.show', ['course' => $course]);
     }
 
     /**

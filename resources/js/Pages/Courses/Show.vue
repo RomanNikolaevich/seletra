@@ -36,7 +36,18 @@ const formatDateTime = (dateTime) => {
         <header
             class="bg-gradient-to-r from-blue-700 via-indigo-700 to-blue-700 w-full text-center py-4"
         >
-            <h1 class="text-white font-bold text-4xl">Course #{{ course.id }} - {{ course.name }}</h1>
+
+            <div class="flex ">
+                <div class="flex-1">
+                    <h1 class="text-white font-bold text-4xl">Course #{{ course.id }} - {{ course.name }}</h1>
+                </div>
+                <div class="flex-none">
+                    <a :href="route('courses.edit', { id: course.id })"
+                       class="btn btn-square btn-ghost text-white ml-2 mr-2">
+                        <font-awesome-icon :icon="['far', 'pen-to-square']" size="2xl" style="color: #edeff2;"/>
+                    </a>
+                </div>
+            </div>
         </header>
 
 
