@@ -1,5 +1,6 @@
 <script setup>
 
+import { ref } from 'vue';
 import AuthenticatedLayout from "@/Layouts/Auth/AuthenticatedLayout.vue";
 import {Head} from "@inertiajs/vue3";
 import CourseType from "@/Components/Dashboard/CourseType.vue";
@@ -23,6 +24,8 @@ const formatDateTime = (dateTime) => {
     };
     return new Date(dateTime).toLocaleString(undefined, options);
 };
+
+const isHovered = ref(false);
 </script>
 
 
@@ -44,7 +47,14 @@ const formatDateTime = (dateTime) => {
                 <div class="flex-none">
                     <a :href="route('courses.edit', { id: course.id })"
                        class="btn btn-square btn-ghost text-white ml-2 mr-2">
-                        <font-awesome-icon :icon="['far', 'pen-to-square']" size="2xl" style="color: #edeff2;"/>
+                        <font-awesome-icon
+                            :icon="['far', 'pen-to-square']"
+                            :class="{'fa-beat': isHovered}"
+                            size="2xl"
+                            style="color: #edeff2;"
+                            @mouseover="isHovered = true"
+                            @mouseleave="isHovered = false"
+                        />
                     </a>
                 </div>
             </div>
