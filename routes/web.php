@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\CourseSubcategoryController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -33,6 +34,7 @@ Route::middleware('auth')->group(function () {
     })->name('dashboard');
 
     Route::resource('courses', CourseController::class);
+    Route::resource('subcategories', CourseSubcategoryController::class);
 
 });
 
