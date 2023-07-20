@@ -46,10 +46,7 @@ const formatDateTime = (dateTime) => {
                 ><span class="font-extrabold">Read more ... </span>
                 </Link>
             </p>
-
         </IndexCourseItemBody>
-        <div class="collapse-content">
 
-        </div>
     </details>
 </template>

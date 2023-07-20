@@ -138,11 +138,7 @@ const submit = () => {
                 >
                     Save
                 </PrimaryButton>
-                <!--                <PrimaryButton class="ml-4"-->
-                <!--                               :href="route('courses.show', { id: course.id })"-->
-                <!--                               :class="{ 'opacity-25': form.processing }" :disabled="form.processing">-->
-                <!--                    Cancel-->
-                <!--                </PrimaryButton>-->
+
             </div>
         </form>
 
