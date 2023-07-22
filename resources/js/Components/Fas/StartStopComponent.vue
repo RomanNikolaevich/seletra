@@ -12,7 +12,3 @@ export default {
         <font-awesome-icon icon="stop" size="xl"/>
     </button>
 </template>
-
-<style scoped>
-
-</style>
