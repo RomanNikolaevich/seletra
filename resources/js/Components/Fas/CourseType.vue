@@ -5,7 +5,7 @@ defineProps({
 </script>
 
 <template>
-    <font-awesome-icon v-if="courseType === 1" icon="fa-regular fa-pen-to-square" />
+    <font-awesome-icon v-if="courseType === 1" icon="fa-regular fa-note-sticky" />
     <font-awesome-icon v-else-if="courseType === 2" icon="fa-solid fa-chalkboard-user" />
     <font-awesome-icon v-else-if="courseType === 3" icon="fa-solid fa-laptop-file" />
     <font-awesome-icon v-else-if="courseType === 4" icon="fa-solid fa-mobile-screen" />
