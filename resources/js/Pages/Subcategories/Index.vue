@@ -32,7 +32,7 @@ const create = () => {
             newSubcategory: form.newSubcategory
         },
         onSuccess: () => {
-            form.newSubcategory = ''; // Сбросить поле ввода после успешного создания
+            form.newSubcategory = '';
         },
         onError: (errors) => {
             console.error(errors);
@@ -105,7 +105,8 @@ const filteredSubcategories = computed(() => {
                             name="name"
                             type="text"
                             class="mt-1 block w-full hover:border-blue-700"
-                            v-model="form.newSubcategory"
+                            v-model.trim="form.newSubcategory"
+                            placeholder="Create new subcategory"
                             required
                             autocomplete=""
                         />

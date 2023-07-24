@@ -31,12 +31,12 @@ class CourseSubcategoryController extends Controller
             'newSubcategory' => 'required|string|max:255',
         ]);
 
-        $subcategory = CourseSubcategory::create([
-            'name' => $request->input('newSubcategory'),
-            'category_id' => $request->input('categoryId'),
-            'user_id' => auth()->id(),
-
-        ]);
+        $subcategory = CourseSubcategory::query()
+            ->create([
+                'name' => $request->input('newSubcategory'),
+                'category_id' => $request->input('categoryId'),
+                'user_id' => auth()->id(),
+            ]);
 //         Добавление связи между подкатегорией и курсами (пример)
 //        $subcategory->courses()->attach($courseIds);
     }

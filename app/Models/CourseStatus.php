@@ -15,6 +15,6 @@ class CourseStatus extends Model
 
     public function courses(): HasMany
     {
-        return $this->hasMany(Course::class, 'status');
+        return $this->hasMany(Course::class, 'status_id');
     }
 }

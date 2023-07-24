@@ -31,7 +31,7 @@ class CourseController extends Controller
      */
     public function index()
     {
-        $courses = Course::latest()->get();
+        $courses = Course::query()->latest()->get();
 
         return Inertia::render('Courses/Index', [
             'courses' => $courses,
@@ -67,13 +67,13 @@ class CourseController extends Controller
             'name' => $request->input('name'),
             'link' => $request->input('link'),
             'description' => $request->input('description'),
-            'type' => $request->input('courseTypes'),
-            'category' => $request->input('courseCategories'),
+            'type_id' => $request->input('courseTypes'),
+            'category_id' => $request->input('courseCategories'),
         ]);
 
         // Добавление связи с подкатегориями (пример)
-        $subcategories = $request->input('courseSubcategories');
-        $course->subcategories()->attach($subcategories);
+//        $subcategories = $request->input('courseSubcategories');
+//        $course->subcategories()->attach($subcategories);
         // Замените $subcategories на фактические идентификаторы подкатегорий
 
         return redirect()->route('courses.index');
@@ -86,15 +86,17 @@ class CourseController extends Controller
      */
     public function show(Course $course)
     {
-        $courseCategory = $course->courseCategory()->first();
-        $courseType = $course->courseType()->first();
-        $courseStatus = $course->courseStatus()->first();
-
         return Inertia::render('Courses/Show', [
             'course' => $course,
-            'courseCategory' => $courseCategory,
-            'courseType' => $courseType,
-            'courseStatus' => $courseStatus,
+            'courseCategory' => $course->courseCategory()->first(),
+            'courseCategories' => $this->courseCategories,
+//            'courseSubcategory' => $course->courseSubcategories()->first(),
+            'courseSubcategories' => CourseSubcategory::query()
+                ->where('user_id', auth()
+                ->id())
+                ->get(),
+            'courseType' => $course->courseType()->first(),
+            'courseStatus' => $course->courseStatus()->first(),
         ]);
     }
 
@@ -117,23 +119,23 @@ class CourseController extends Controller
      * Course update
      * @param Request $request
      * @param Course $course
-     * @return RedirectResponse
+     * @return void
      */
     public function update(Request $request, Course $course)
     {
-        $request->validate([
-            'name' => 'required',
-            'link' => 'required',
-        ]);
+//        $request->validate([
+//            'name' => 'required',
+//            'link' => 'required',
+//            'description' => 'required',
+//        ]);
 
         $course->update($request->all());
 
-        // Обновление связи с подкатегориями (пример)
-        $subcategories = $request->input('courseSubcategories');
-        $course->subcategories()->sync($subcategories);
+//        $subcategories = $request->input('courseSubcategories');
+//        $course->courseSubcategories()->sync($subcategories);
         // Замените $subcategories на фактические идентификаторы подкатегорий
 
-        return redirect()->route('courses.show', ['course' => $course]);
+//                return redirect()->route('courses.show', ['course' => $course]);
     }
 
     /**
@@ -144,7 +146,7 @@ class CourseController extends Controller
     public function destroy(Course $course)
     {
         // Удаление связей с подкатегориями
-        $course->subcategories()->detach();
+        $course->courseSubcategories()->detach();
 
         $course->delete();
 

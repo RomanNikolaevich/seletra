@@ -18,10 +18,10 @@ class CourseFactory extends Factory
             'name' => $this->faker->sentence,
             'link' => $this->faker->url,
             'description' => $this->faker->paragraph,
-            'status' => $this->faker->numberBetween(1, 6),
-            'type' => $this->faker->numberBetween(1, 16),
+            'category_id' => $this->faker->numberBetween(1, 30),
+            'status_id' => $this->faker->numberBetween(1, 6),
+            'type_id' => $this->faker->numberBetween(1, 16),
             'favorites' => $this->faker->boolean,
-            'category' => $this->faker->numberBetween(1, 30),
         ];
     }
 }

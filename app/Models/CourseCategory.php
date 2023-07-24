@@ -15,16 +15,16 @@ class CourseCategory extends Model
 
     public function courses(): HasMany
     {
-        return $this->hasMany(Course::class, 'category');
+        return $this->hasMany(Course::class, 'category_id', 'id');
     }
 
     public function subcategories(): HasMany
     {
-        return $this->hasMany(CourseSubcategory::class, 'category_id');
+        return $this->hasMany(CourseSubcategory::class, 'category_id', 'id');
     }
 
-    public function user(): BelongsTo
-    {
-        return $this->belongsTo(User::class);
-    }
+//    public function user(): BelongsTo
+//    {
+//        return $this->belongsTo(User::class);
+//    }
 }

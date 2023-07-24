@@ -92,13 +92,13 @@ const submit = () => {
             <div class="mt-4">
                 <InputLabel for="courseTypes" value="Specify how you will obtain information for the study"/>
 
-                <select id="courseCategories"
-                        name="courseCategories"
+                <select id="courseTypes"
+                        name="courseTypes"
                         class="w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
                         v-model="form.courseTypes"
                         required
                 >
-                    <option disabled selected value="">Choose course category</option>
+                    <option disabled selected value="">Choose course type</option>
                     <option v-for="type in courseTypes"
                             :key="type.id"
                             :value="type.id"

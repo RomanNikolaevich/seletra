@@ -4,7 +4,7 @@ import IndexCourseItemSummary from "@/Pages/Courses/Partials/IndexCourseItemSumm
 import CourseType from "@/Components/Fas/CourseType.vue";
 import IndexCourseItemBody from "@/Pages/Courses/Partials/IndexCourseItemBody.vue";
 
-defineProps({
+const props = defineProps({
     course: Object,
 });
 
@@ -25,18 +25,18 @@ const formatDateTime = (dateTime) => {
 <template>
     <details class="collapse mb-2">
         <IndexCourseItemSummary :course="course">
-            <CourseType :courseType="course.type" class="ml-2 mr-4"/>
-            {{ course.name }}
+            <CourseType :courseType="course.type_id" class="ml-2 mr-4"/>
+            {{ props.course.name }}
         </IndexCourseItemSummary>
         <IndexCourseItemBody :course="course">
             <p>
-                <span class="font-extrabold">Description: </span> {{ course.description }}
+                <span class="font-extrabold">Description: </span> {{ props.course.description }}
             </p>
             <p>
-                <span class="font-extrabold">Created: </span>{{ formatDateTime(course.created_at) }}
+                <span class="font-extrabold">Created: </span>{{ formatDateTime(props.course.created_at) }}
             </p>
             <p>
-                <Link v-if="course.status === 1 || course.status === 2 || course.status === 3"
+                <Link v-if="course.status_id === 1 || course.status_id === 2 || course.status_id === 3"
                       :href="route('courses.show', { id: course.id })"
                       class="font-semibold text-indigo-700  hover:text-indigo-900"
                 >Read more ...

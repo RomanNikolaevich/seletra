@@ -38,7 +38,7 @@ const submit = () => {
         <header
             class="bg-gradient-to-r from-blue-700 via-indigo-700 to-blue-700 w-full text-center py-4"
         >
-            <h1 class="text-white font-bold text-4xl">Edit Course #{{ course.id }} - {{ course.name }}</h1>
+            <h1 class="text-white font-bold text-4xl">Edit Course #{{ props.course.id }} - {{ props.course.name }}</h1>
         </header>
 
         <form name="createForm" @submit.prevent="submit">
@@ -94,13 +94,13 @@ const submit = () => {
             <div class="mt-4">
                 <InputLabel for="courseTypes" value="Specify how you will obtain information for the study"/>
 
-                <select id="courseCategories"
-                        name="courseCategories"
+                <select id="courseTypes"
+                        name="courseTypes"
                         class="w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
                         v-model="form.type"
                         required
                 >
-                    <option disabled selected value="">Change course category</option>
+                    <option disabled selected value="">Change course type</option>
                     <option v-for="type in courseTypes"
                             :key="type.id"
                             :value="type.id"

@@ -15,30 +15,30 @@ class Course extends Model
         'name',
         'link',
         'description',
-        'status',
+        'category_id',
+        'type_id',
+        'status_id',
         'completion_at',
-        'category',
-        'type',
     ];
 
     protected $casts = ['favorites' => 'boolean'];
 
     public function courseCategory(): BelongsTo
     {
-        return $this->belongsTo(CourseCategory::class, 'category', 'id');
+        return $this->belongsTo(CourseCategory::class, 'category_id', 'id');
     }
 
     public function courseType(): BelongsTo
     {
-        return $this->belongsTo(CourseType::class, 'type', 'id');
+        return $this->belongsTo(CourseType::class, 'type_id', 'id');
     }
 
     public function courseStatus(): BelongsTo
     {
-        return $this->belongsTo(CourseStatus::class, 'status', 'id');
+        return $this->belongsTo(CourseStatus::class, 'status_id', 'id');
     }
 
-    public function subcategories(): BelongsToMany
+    public function courseSubcategories(): BelongsToMany
     {
         return $this->belongsToMany(
             CourseSubcategory::class, 'course_category_subcategory', 'course_id', 'subcategory_id');
