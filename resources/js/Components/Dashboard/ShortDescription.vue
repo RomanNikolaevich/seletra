@@ -33,7 +33,7 @@ const truncatedDescription = computed(() => {
                 :class="{ 'text-blue-700': blackText, 'text-white': !blackText }"
                 class="ml-3 font-extrabold text-2xl"
             >
-                <span class="text-2xl">+</span>
+                <span>+</span>
             </button>
         </template>
         <template v-else>
@@ -42,7 +42,7 @@ const truncatedDescription = computed(() => {
                 :class="{ 'text-blue-700': blackText, 'text-white': !blackText }"
                 class="ml-3 font-extrabold text-2xl"
             >
-                <span class="text-2xl">&ndash;</span>
+                <span>&ndash;</span>
             </button>
         </template>
     </template>
