@@ -27,23 +27,12 @@ const truncatedDescription = computed(() => {
     <span class="font-medium text-lg">{{ truncatedDescription }}</span>
 
     <template v-if="!isShortText">
-        <template v-if="!showFullText">
-            <button
-                @click="showFullText = true"
-                :class="{ 'text-blue-700': blackText, 'text-white': !blackText }"
-                class="ml-3 font-extrabold text-2xl"
-            >
-                <span>+</span>
-            </button>
-        </template>
-        <template v-else>
-            <button
-                @click="showFullText = false"
-                :class="{ 'text-blue-700': blackText, 'text-white': !blackText }"
-                class="ml-3 font-extrabold text-2xl"
-            >
-                <span>&ndash;</span>
-            </button>
-        </template>
+        <button
+            @click="showFullText = !showFullText"
+            :class="{ 'text-blue-900': blackText, 'text-white': !blackText }"
+            class="ml-3 font-extrabold text-2xl"
+        >
+            <span>{{ showFullText ? '&#9650;' : '&#9660;' }}</span>
+        </button>
     </template>
 </template>
