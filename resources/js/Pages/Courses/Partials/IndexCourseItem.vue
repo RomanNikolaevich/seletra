@@ -4,29 +4,17 @@ import IndexCourseItemSummary from "@/Pages/Courses/Partials/IndexCourseItemSumm
 import CourseType from "@/Components/Fas/CourseType.vue";
 import IndexCourseItemBody from "@/Pages/Courses/Partials/IndexCourseItemBody.vue";
 import ShortDescription from "@/Components/Dashboard/ShortDescription.vue";
+import {formatDateTime} from "@/Components/JS/formatDateTime.js"
 
 const props = defineProps({
     course: Object,
 });
 
 const blackText = (props.course.status_id === 1 || props.course.status_id === 2 || props.course.status_id === 3);
-
-const formatDateTime = (dateTime) => {
-    const options = {
-        year: "numeric",
-        month: "2-digit",
-        day: "2-digit",
-        hour: "numeric",
-        minute: "numeric",
-        second: "numeric",
-    };
-    return new Date(dateTime).toLocaleString(undefined, options);
-};
-
 </script>
 
 <template>
-    <details class="collapse mb-2">
+    <details class="collapse close mb-2">
         <IndexCourseItemSummary :course="course">
             <CourseType :courseType="course.type_id" class="ml-2 mr-4"/>
             {{ props.course.name }}
