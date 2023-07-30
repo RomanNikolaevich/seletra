@@ -35,4 +35,16 @@ class UserFactory extends Factory
             'email_verified_at' => null,
         ]);
     }
+
+    /**
+     * Define a state for the superadmin user.
+     */
+    public function superadmin(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'name' => 'superadmin',
+            'email' => 'superadmin@example.com',
+            'password' => bcrypt('999999'),
+        ]);
+    }
 }

@@ -22,6 +22,7 @@ class CourseFactory extends Factory
             'status_id' => $this->faker->numberBetween(1, 6),
             'type_id' => $this->faker->numberBetween(1, 16),
             'favorites' => $this->faker->boolean,
+            'user_id' => 1,
         ];
     }
 }

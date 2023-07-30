@@ -18,6 +18,8 @@ class Course extends Model
         'category_id',
         'type_id',
         'status_id',
+        'favorites',
+        'user_id',
         'completion_at',
     ];
 
@@ -41,6 +43,6 @@ class Course extends Model
     public function courseSubcategories(): BelongsToMany
     {
         return $this->belongsToMany(
-            CourseSubcategory::class, 'course_category_subcategory', 'course_id', 'subcategory_id');
+            CourseSubcategory::class, 'course_subcategories_pivot', 'course_id', 'subcategory_id', 'id');
     }
 }
