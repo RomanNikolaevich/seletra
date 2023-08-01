@@ -43,6 +43,7 @@ class Course extends Model
     public function courseSubcategories(): BelongsToMany
     {
         return $this->belongsToMany(
-            CourseSubcategory::class, 'course_subcategories_pivot', 'course_id', 'subcategory_id', 'id');
+            CourseSubcategory::class, 'course_subcategories_pivot', 'course_id', 'subcategory_id', 'id')
+            ->withPivot('course_id', 'subcategory_id');
     }
 }

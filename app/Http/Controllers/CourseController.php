@@ -16,13 +16,11 @@ class CourseController extends Controller
 {
     private Collection $courseTypes;
     private Collection $courseCategories;
-    private Collection $courseSubcategories;
 
     public function __construct()
     {
         $this->courseTypes = CourseType::all();
         $this->courseCategories = CourseCategory::all();
-        $this->courseSubcategories = CourseSubcategory::all();
     }
 
     /**
@@ -31,7 +29,11 @@ class CourseController extends Controller
      */
     public function index()
     {
-        $courses = Course::query()->latest()->get();
+        $courses = Course::query()
+            ->where('user_id', auth()->id())
+            ->orderBy('id', 'desc')
+            ->get();
+
 
         return Inertia::render('Courses/Index', [
             'courses' => $courses,
@@ -47,7 +49,10 @@ class CourseController extends Controller
         return Inertia::render('Courses/Create', [
             'courseTypes' => $this->courseTypes,
             'courseCategories' => $this->courseCategories,
-            'courseSubcategories' => $this->courseSubcategories,
+            'courseSubcategories' => CourseSubcategory::query()
+                ->where('user_id', auth()->id())
+                ->orderBy('id')
+                ->get(),
         ]);
     }
 
@@ -86,16 +91,29 @@ class CourseController extends Controller
      */
     public function show(Course $course)
     {
+        $courseCategory = $course->courseCategory()->first();
+//        dd($course->category_id);
+//        dd($this->courseCategories);
+//        dd($course->courseSubcategories()
+//            ->where('user_id', auth()->id())
+////            ->where('category_id', $course->category_id)
+//            ->get());
+
         return Inertia::render('Courses/Show', [
             'course' => $course,
-            'courseCategory' => $course->courseCategory()->first(),
+            'courseCategory' => $courseCategory,
             'courseCategories' => $this->courseCategories,
-//            'courseSubcategory' => $course->courseSubcategories()->first(),
-            'courseSubcategories' => CourseSubcategory::query()
-                ->where('user_id', auth()
-                ->id())
+            'courseSubcategoriesChecked' => $course->courseSubcategories()
+                ->where('user_id', auth()->id())
+                ->where('category_id', $courseCategory->id)
+                ->get(),
+            'courseSubcategoriesAll' => CourseSubcategory::query()
+                ->where('user_id', auth()->id())
+                ->where('category_id', $courseCategory->id)
+                ->orderBy('id')
                 ->get(),
             'courseType' => $course->courseType()->first(),
+            'courseTypes' => $this->courseTypes,
             'courseStatus' => $course->courseStatus()->first(),
         ]);
     }
@@ -105,23 +123,34 @@ class CourseController extends Controller
      * @param Course $course
      * @return Response
      */
-    public function edit(Course $course)
-    {
-        return Inertia::render('Courses/Edit', [
-            'course' => $course,
-            'courseTypes' => $this->courseTypes,
-            'courseCategories' => $this->courseCategories,
-            'courseSubcategories' => $this->courseSubcategories,
-        ]);
-    }
+//    public function edit(Course $course)
+//    {
+//        return Inertia::render('Courses/Edit', [
+//            'course' => $course,
+//            'courseTypes' => $this->courseTypes,
+//            'courseCategories' => $this->courseCategories,
+//            'courseSubcategories' => CourseSubcategory::query()
+//                ->where('user_id', auth()->id())
+//                ->orderBy('id')
+//                ->get(),
+//        ]);
+//    }
 
     /**
      * Course update
+     * I was having problems with adding to favorites, which was removing the subcategory data from the pivot table.
+     * So I had to use this crutch:
+     * When editing a course, before updating, first get and save the current subcategory relationships.
+     * Then, after updating the master data, we retrieve the selected subcategories from the query again and merge
+     * them with the current subcategories.
+     * Now the sync() method will only synchronize new subcategories and add them to the existing ones, without
+     * deleting the ones that were already linked to the course.
+     *
      * @param Request $request
      * @param Course $course
      * @return void
      */
-    public function update(Request $request, Course $course)
+    public function update(Request $request, Course $course): void
     {
 //        $request->validate([
 //            'name' => 'required',
@@ -129,13 +158,13 @@ class CourseController extends Controller
 //            'description' => 'required',
 //        ]);
 
+
+        $currentSubcategories = $course->courseSubcategories->pluck('id')->toArray();
         $course->update($request->all());
 
-//        $subcategories = $request->input('courseSubcategories');
-//        $course->courseSubcategories()->sync($subcategories);
-        // Замените $subcategories на фактические идентификаторы подкатегорий
-
-//                return redirect()->route('courses.show', ['course' => $course]);
+        $selectedSubcategories = $request->input('checkedSubcategory', []);
+        $updatedSubcategories = array_merge($currentSubcategories, $selectedSubcategories);
+        $course->courseSubcategories()->sync($updatedSubcategories);
     }
 
     /**

@@ -7,10 +7,10 @@ const isHovered = ref(false);
 
 <template>
     <font-awesome-icon
-        :icon="['fas', 'check']"
+        :icon="['fas', 'ban']"
         :class="{'fa-beat': isHovered}"
         @mouseover="isHovered = true"
         @mouseleave="isHovered = false"
-        size="xl" style="color: #063fbe;"
+        size="lg" style="color: #063fbe;"
     />
 </template>
