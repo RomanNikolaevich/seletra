@@ -1,20 +1,24 @@
 <script setup>
 
+import CourseShowHeader from "@/Components/Dashboard/CourseShowHeader.vue";
+import {useBlockVisibilityMixin} from "@/Components/JS/useBlockVisibilityMixin.js";
+
+const { isBlockVisible, toggleBlock, toggleButtonIcon } = useBlockVisibilityMixin();
 </script>
 
 <template>
-    <div
-        class="bg-gradient-to-r from-blue-700 via-indigo-700 to-blue-700 w-full text-center py-2"
-    >
-        <h1 class="text-white font-bold text-4xl">History of lessons</h1>
-    </div>
-    <!--                    <template v-if="">-->
-    <!--                        <span class="font-medium"></span>-->
-    <!--                    </template>-->
-    <!--                    <template v-else>-->
-    <!--                        <span class="font-medium">No subcategory available</span>-->
-    <!--                    </template>-->
-    <div>
-        Your history is empty
-    </div>
+    <section class="mb-4">
+        <CourseShowHeader
+            :toggleBlock ="toggleBlock"
+            :toggleButtonIcon="toggleButtonIcon"
+        >
+            <template #headerName>
+                History of lessons
+            </template>
+        </CourseShowHeader>
+
+        <div v-show="isBlockVisible">
+            Your history is empty
+        </div>
+    </section>
 </template>

@@ -42,7 +42,7 @@ const cancelEdit = () => {
                 <a
                     :href="props.course.link"
                     target="_blank"
-                    class="font-medium text-grey-400
+                    class="font-medium text-lg text-grey-400
                     hover:text-blue-700
                     text-decoration: underline"
                 >
@@ -50,7 +50,7 @@ const cancelEdit = () => {
                 </a>
             </template>
             <template v-else>
-                <span class="font-medium">No link available</span>
+                <span class="font-medium text-lg">No link available</span>
             </template>
         </div>
         <EditButtonGroup
@@ -71,9 +71,9 @@ const cancelEdit = () => {
         <div class=" flex-1 bg-white h-full">
             <div class="font-medium">
                 <TextInput
-                    id="description"
+                    id="link"
                     type="text"
-                    name="description"
+                    name="link"
                     class="w-full border-gray-300 focus:border-indigo-500
                               focus:ring-indigo-500 rounded-md shadow-sm"
                     v-model.trim="form.link"

@@ -6,8 +6,7 @@ import ShowAbout from "@/Pages/Courses/Partials/ShowAbout.vue";
 import ShowHistory from "@/Pages/Courses/Partials/ShowHistory.vue";
 import ShowTracker from "@/Pages/Courses/Partials/ShowTracker.vue";
 import ShowStatistics from "@/Pages/Courses/Partials/ShowStatistics.vue";
-import LogoAnimation from "@/Components/Dashboard/LogoAnimation.vue";
-import ShowEditSubcategory from "@/Pages/Courses/Partials/ShowEditSubcategory.vue";
+import CourseShowHeader from "@/Components/Dashboard/CourseShowHeader.vue";
 
 defineProps({
     course: Object,
@@ -30,6 +29,12 @@ defineProps({
     <AuthenticatedLayout>
 <!--        <LogoAnimation/>-->
 
+        <CourseShowHeader>
+            <template #headerName>
+                {{ course.name }}
+            </template>
+        </CourseShowHeader>
+
         <ShowAbout
             :course="course"
             :courseCategory="courseCategory"
@@ -41,9 +46,12 @@ defineProps({
             :courseStatus="courseStatus"
         />
 
-        <ShowTracker/>
+        <ShowTracker
+        />
 
-        <ShowStatistics/>
-        <ShowHistory/>
+        <ShowStatistics
+        />
+        <ShowHistory
+        />
     </AuthenticatedLayout>
 </template>
