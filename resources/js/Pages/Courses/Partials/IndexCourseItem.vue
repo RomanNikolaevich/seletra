@@ -17,7 +17,7 @@ const blackText = (props.course.status_id === 1 || props.course.status_id === 2 
     <details class="collapse close mb-2">
         <IndexCourseItemSummary :course="course">
             <CourseType :courseType="course.type_id" class="ml-2 mr-4"/>
-            {{ props.course.name }}
+            {{ props.course.id }}: {{ props.course.name }}
         </IndexCourseItemSummary>
         <IndexCourseItemBody :course="course">
             <p>
