@@ -8,17 +8,39 @@ import {ZiggyVue} from '../../vendor/tightenco/ziggy/dist/vue.m';
 import {library} from '@fortawesome/fontawesome-svg-core'
 import {FontAwesomeIcon} from '@fortawesome/vue-fontawesome'
 import {
-    faBars, faBook, faBookOpenReader, faBuildingColumns, faChalkboardUser, faCircleInfo, faEllipsisVertical,
-    faHeartPulse, faLaptopFile, faMicrophone, faMobileScreen, faPeopleArrows, faPeopleGroup, faPersonBurst,
-    faPlay, faStar, faStop, faTv, faUserGear, faPenToSquare, faCheck, faPen,
+    faBars,
+    faBook,
+    faBookOpenReader,
+    faBuildingColumns,
+    faChalkboardUser,
+    faCircleInfo,
+    faEllipsisVertical,
+    faHeartPulse,
+    faLaptopFile,
+    faMicrophone,
+    faMobileScreen,
+    faPeopleArrows,
+    faPeopleGroup,
+    faPersonBurst,
+    faPlay,
+    faStar,
+    faStop,
+    faTv,
+    faUserGear,
+    faPenToSquare,
+    faCheck,
+    faPen,
+    faUpRightAndDownLeftFromCenter,
+    faDownLeftAndUpRightToCenter, faBan, faHeart as faHeartSolid,
 } from '@fortawesome/free-solid-svg-icons'
-import {faComments, faNoteSticky, } from "@fortawesome/free-regular-svg-icons";
+import {faComments, faNoteSticky, faSquareMinus, faSquarePlus, faHeart as faHeartRegular} from "@fortawesome/free-regular-svg-icons";
 import {faYoutube } from "@fortawesome/free-brands-svg-icons";
 
 /* add icons to the library */
 library.add(faPlay, faStop, faPenToSquare, faChalkboardUser, faLaptopFile, faMobileScreen, faMicrophone, faYoutube,
     faTv, faBookOpenReader, faBuildingColumns, faBook, faPeopleArrows, faComments, faPeopleGroup, faUserGear,
-    faPersonBurst, faHeartPulse, faBars, faEllipsisVertical, faCircleInfo, faStar, faCheck, faPen, faNoteSticky);
+    faPersonBurst, faHeartPulse, faBars, faEllipsisVertical, faCircleInfo, faStar, faCheck, faPen, faNoteSticky,
+    faSquarePlus, faSquareMinus, faUpRightAndDownLeftFromCenter, faDownLeftAndUpRightToCenter, faBan, faHeartSolid, faHeartRegular);
 
 
 
