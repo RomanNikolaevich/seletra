@@ -2,7 +2,7 @@
 
 import TextInput from "@/Components/Auth/TextInput.vue";
 import InputError from "@/Components/Auth/InputError.vue";
-import {useForm} from "@inertiajs/vue3";
+import {useForm, usePage} from "@inertiajs/vue3";
 import PrimaryButton from "@/Components/Auth/PrimaryButton.vue";
 import DangerButton from "@/Components/Auth/DangerButton.vue";
 import SecondaryButton from "@/Components/Auth/SecondaryButton.vue";
@@ -11,6 +11,7 @@ import {ref} from "vue";
 const props = defineProps({
     subcategory: {
         type: Object,
+        flash: Object,
     },
 });
 
@@ -37,7 +38,14 @@ const cancelSave = () => {
 const deleteSubcategory = () => {
     if (confirm(`Are you sure you want to delete the subcategory "${props.subcategory.name}"?`)) {
         form.delete(route('subcategories.destroy', props.subcategory.id), {
-            onSuccess: () => {
+            onSuccess: (response) => {
+                // Update the flash message with the value from the server response
+                props.flash.success = response.flash.success;
+                form.newSubcategory = '';
+
+                // Use Inertia.js to visit the current page and load fresh data
+                const { visit } = usePage();
+                visit();
             },
             onError: (error) => {
                 console.error(error);

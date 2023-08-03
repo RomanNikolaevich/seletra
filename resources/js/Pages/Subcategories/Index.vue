@@ -1,15 +1,20 @@
 <script setup>
 
 import AuthenticatedLayout from "@/Layouts/Auth/AuthenticatedLayout.vue";
-import {Head, useForm} from "@inertiajs/vue3";
+import {Head, useForm, usePage} from "@inertiajs/vue3";
 import {computed} from "vue";
 import TextInput from "@/Components/Auth/TextInput.vue";
 import PrimaryButton from "@/Components/Auth/PrimaryButton.vue";
 import EditSubcategoryName from "@/Pages/Subcategories/Partials/EditSubcategoryName.vue";
+import FlashMessageSuccess from "@/Components/Dashboard/FlashMessageSuccess.vue";
+import FlashMessageWarning from "@/Components/Dashboard/FlashMessageWarning.vue";
+import InputError from "@/Components/Auth/InputError.vue";
+
 
 const props = defineProps({
     categories: Object,
     subcategories: Object,
+    flash: Object,
 });
 
 const form = useForm({
@@ -31,13 +36,23 @@ const create = () => {
             categoryId: form.categoryId,
             newSubcategory: form.newSubcategory
         },
-        onSuccess: () => {
+        onSuccess: (response) => {
+            // Update the flash message with the value from the server response
+            props.flash.success = response.flash.success;
             form.newSubcategory = '';
+
+            // Use Inertia.js to visit the current page and load fresh data
+            const {visit} = usePage();
+            visit();
         },
         onError: (errors) => {
             console.error(errors);
         },
     });
+};
+
+const hideAlert = () => {
+    props.flash.success = null;
 };
 
 //Filtered subcategories list for show/edit
@@ -60,6 +75,9 @@ const filteredSubcategories = computed(() => {
     </Head>
 
     <AuthenticatedLayout>
+        <FlashMessageSuccess v-if="flash.success" :flash="flash"/>
+        <FlashMessageWarning v-if="flash.warning" :flash="flash"/>
+
         <header
             class="bg-gradient-to-r from-blue-700 via-indigo-700 to-blue-700 w-full text-center py-4"
         >
@@ -110,6 +128,7 @@ const filteredSubcategories = computed(() => {
                             required
                             autocomplete=""
                         />
+                        <InputError class="mt-2" :message="form.errors.newSubcategory" />
                     </div>
                     <div class="flex-none w-20 h-14 ml-4 mr-4">
                         <PrimaryButton :disabled="form.processing">
@@ -130,7 +149,10 @@ const filteredSubcategories = computed(() => {
                 v-for="subcategory in filteredSubcategories"
                 :key="subcategory.id"
             >
-                <EditSubcategoryName :subcategory="subcategory"/>
+                <EditSubcategoryName
+                    :subcategory="subcategory"
+                    :flash="flash"
+                />
             </div>
         </div>
     </AuthenticatedLayout>

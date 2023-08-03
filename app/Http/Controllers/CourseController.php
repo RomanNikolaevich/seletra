@@ -49,10 +49,10 @@ class CourseController extends Controller
         return Inertia::render('Courses/Create', [
             'courseTypes' => $this->courseTypes,
             'courseCategories' => $this->courseCategories,
-            'courseSubcategories' => CourseSubcategory::query()
-                ->where('user_id', auth()->id())
-                ->orderBy('id')
-                ->get(),
+//            'courseSubcategories' => CourseSubcategory::query()
+//                ->where('user_id', auth()->id())
+//                ->orderBy('id')
+//                ->get(),
         ]);
     }
 
@@ -73,6 +73,7 @@ class CourseController extends Controller
             'link' => $request->input('link'),
             'description' => $request->input('description'),
             'type_id' => $request->input('courseTypes'),
+            'user_id' => auth()->id(),
             'category_id' => $request->input('courseCategories'),
         ]);
 
@@ -81,7 +82,8 @@ class CourseController extends Controller
 //        $course->subcategories()->attach($subcategories);
         // Замените $subcategories на фактические идентификаторы подкатегорий
 
-        return redirect()->route('courses.index');
+        return redirect()->route('courses.index')
+            ->with('success', "Course Create Successfully");
     }
 
     /**
@@ -174,11 +176,12 @@ class CourseController extends Controller
      */
     public function destroy(Course $course)
     {
-        // Удаление связей с подкатегориями
         $course->courseSubcategories()->detach();
 
         $course->delete();
 
-        return redirect()->route('courses.index');
+        return redirect()
+            ->route('courses.index')
+            ->with('warning', "Course $course->name deleted successfully");
     }
 }

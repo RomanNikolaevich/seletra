@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\CourseCategory;
 use App\Models\CourseSubcategory;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use Inertia\Inertia;
 
 class CourseSubcategoryController extends Controller
@@ -28,10 +29,17 @@ class CourseSubcategoryController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'newSubcategory' => 'required|string|max:255',
+            'newSubcategory' => [
+                'required',
+                'string',
+                'max:255',
+                Rule::unique('course_subcategories', 'name')->where(function ($query) {
+                    return $query->where('user_id', auth()->id());
+                }),
+            ],
         ]);
 
-        $subcategory = CourseSubcategory::query()
+        CourseSubcategory::query()
             ->create([
                 'name' => $request->input('newSubcategory'),
                 'category_id' => $request->input('categoryId'),
@@ -39,6 +47,9 @@ class CourseSubcategoryController extends Controller
             ]);
 //         Добавление связи между подкатегорией и курсами (пример)
 //        $subcategory->courses()->attach($courseIds);
+
+        session()->flash('success', 'Subcategory Create Successfully');
+        return Inertia::location(route('subcategories.index'));
     }
 
     public function update(Request $request, CourseSubcategory $subcategory)
@@ -48,13 +59,14 @@ class CourseSubcategoryController extends Controller
         ]);
 
         $subcategory->update($request->all());
-
-        // Обновление связей с курсами (пример)
-        //$subcategory->courses()->sync($courseIds);
+        session()->flash('success', 'Subcategory Update Successfully');
+        return Inertia::location(route('subcategories.index'));
     }
 
     public function destroy(CourseSubcategory $subcategory)
     {
         $subcategory->delete();
+        session()->flash('warning', "Subcategory $subcategory->name Deleted Successfully");
+        return Inertia::location(route('subcategories.index'));
     }
 }
