@@ -1,11 +1,14 @@
 <script setup>
 
+import {ref} from "vue";
+
 const props = defineProps({
     toggleBlock: Function,
     handleShowEditChange: Function,
     toggleButtonIcon: String,
 });
 
+const isHovered = ref(false);
 </script>
 
 <template>
@@ -30,7 +33,10 @@ const props = defineProps({
                  class="flex items-center justify-center h-full w-30">
                 <button @click="handleShowEditChange" class="ml-4 mr-4">
                     <font-awesome-icon
-                        :icon="['fas', 'ellipsis-vertical']"
+                        :icon="['fas', 'pen-to-square']"
+                        :class="{'fa-beat': isHovered}"
+                        @mouseover="isHovered = true"
+                        @mouseleave="isHovered = false"
                         size="xl"
                         style="color: #f3f4f7;"
                     />
