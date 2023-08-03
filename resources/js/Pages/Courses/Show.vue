@@ -7,6 +7,7 @@ import ShowHistory from "@/Pages/Courses/Partials/ShowHistory.vue";
 import ShowTracker from "@/Pages/Courses/Partials/ShowTracker.vue";
 import ShowStatistics from "@/Pages/Courses/Partials/ShowStatistics.vue";
 import CourseShowHeader from "@/Components/Dashboard/CourseShowHeader.vue";
+import ShowManagement from "@/Pages/Courses/Partials/ShowManagement.vue";
 
 defineProps({
     course: Object,
@@ -51,7 +52,12 @@ defineProps({
 
         <ShowStatistics
         />
+
         <ShowHistory
+        />
+
+        <ShowManagement
+            :course="course"
         />
     </AuthenticatedLayout>
 </template>
