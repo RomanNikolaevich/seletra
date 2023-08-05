@@ -2,15 +2,25 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Course\SubcategoryStoreRequest;
+use App\Http\Requests\Course\SubcategoryUpdateRequest;
 use App\Models\CourseCategory;
 use App\Models\CourseSubcategory;
+use App\Services\SubcategoryService;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
 use Inertia\Inertia;
+use Inertia\Response;
 
 class CourseSubcategoryController extends Controller
 {
-    public function index()
+    public function __construct(private readonly SubcategoryService $subcategoryService)
+    {
+    }
+
+    /**
+     * @return Response
+     */
+    public function index(): Response
     {
         $categories = CourseCategory::query()
             ->orderBy('id')
@@ -26,46 +36,42 @@ class CourseSubcategoryController extends Controller
         ]);
     }
 
-    public function store(Request $request)
+    /**
+     * @param SubcategoryStoreRequest $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function store(SubcategoryStoreRequest $request): \Symfony\Component\HttpFoundation\Response
     {
-        $request->validate([
-            'newSubcategory' => [
-                'required',
-                'string',
-                'max:255',
-                Rule::unique('course_subcategories', 'name')->where(function ($query) {
-                    return $query->where('user_id', auth()->id());
-                }),
-            ],
-        ]);
-
-        CourseSubcategory::query()
-            ->create([
-                'name' => $request->input('newSubcategory'),
-                'category_id' => $request->input('categoryId'),
-                'user_id' => auth()->id(),
-            ]);
-//         Добавление связи между подкатегорией и курсами (пример)
-//        $subcategory->courses()->attach($courseIds);
+        $this->subcategoryService->createSubcategory($request->validated());
 
         session()->flash('success', 'Subcategory Create Successfully');
         return Inertia::location(route('subcategories.index'));
     }
 
-    public function update(Request $request, CourseSubcategory $subcategory)
+    /**
+     * @param Request $request
+     * @param CourseSubcategory $subcategory
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function update(
+        SubcategoryUpdateRequest $request,
+        CourseSubcategory        $subcategory
+    ): \Symfony\Component\HttpFoundation\Response
     {
-        $request->validate([
-            'name' => 'required',
-        ]);
+        $this->subcategoryService->updateSubcategory($subcategory, $request->validated());
 
-        $subcategory->update($request->all());
         session()->flash('success', 'Subcategory Update Successfully');
         return Inertia::location(route('subcategories.index'));
     }
 
-    public function destroy(CourseSubcategory $subcategory)
+    /**
+     * @param CourseSubcategory $subcategory
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function destroy(CourseSubcategory $subcategory): \Symfony\Component\HttpFoundation\Response
     {
-        $subcategory->delete();
+        $this->subcategoryService->destroySubcategory($subcategory);
+
         session()->flash('warning', "Subcategory $subcategory->name Deleted Successfully");
         return Inertia::location(route('subcategories.index'));
     }

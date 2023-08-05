@@ -44,7 +44,7 @@ const deleteSubcategory = () => {
                 form.newSubcategory = '';
 
                 // Use Inertia.js to visit the current page and load fresh data
-                const { visit } = usePage();
+                const {visit} = usePage();
                 visit();
             },
             onError: (error) => {
@@ -78,9 +78,8 @@ const deleteSubcategory = () => {
                     autofocus
                     autocomplete="name"
                 />
-
-                <InputError class="mt-2" :message="form.errors.name"/>
             </form>
+            <InputError class="mt-2" :message="form.errors.name"/>
         </div>
         <div class="flex-none mr-2">
             <PrimaryButton
