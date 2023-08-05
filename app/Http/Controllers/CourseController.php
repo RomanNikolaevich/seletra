@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Course\CourseStoreRequest;
+use App\Http\Requests\Course\CourseUpdateRequest;
 use App\Models\Course;
 use App\Models\CourseCategory;
 use App\Models\CourseSubcategory;
 use App\Models\CourseType;
+use App\Services\CourseService;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -17,17 +20,20 @@ class CourseController extends Controller
     private Collection $courseTypes;
     private Collection $courseCategories;
 
-    public function __construct()
+    private CourseService $courseService;
+
+    public function __construct(CourseService $courseService)
     {
         $this->courseTypes = CourseType::all();
         $this->courseCategories = CourseCategory::all();
+        $this->courseService = $courseService;
     }
 
     /**
      * Displaying a List of Courses
      * @return Response
      */
-    public function index()
+    public function index(): Response
     {
         $courses = Course::query()
             ->where('user_id', auth()->id())
@@ -44,43 +50,22 @@ class CourseController extends Controller
      * Create a new course
      * @return Response
      */
-    public function create()
+    public function create(): Response
     {
         return Inertia::render('Courses/Create', [
             'courseTypes' => $this->courseTypes,
             'courseCategories' => $this->courseCategories,
-//            'courseSubcategories' => CourseSubcategory::query()
-//                ->where('user_id', auth()->id())
-//                ->orderBy('id')
-//                ->get(),
         ]);
     }
 
     /**
      * Saving the course and redirect
-     * @param Request $request
+     * @param CourseStoreRequest $request
      * @return RedirectResponse
      */
-    public function store(Request $request)
+    public function store(CourseStoreRequest $request): RedirectResponse
     {
-        $request->validate([
-            'name' => 'required',
-            'link' => 'required',
-        ]);
-
-        $course = Course::create([
-            'name' => $request->input('name'),
-            'link' => $request->input('link'),
-            'description' => $request->input('description'),
-            'type_id' => $request->input('courseTypes'),
-            'user_id' => auth()->id(),
-            'category_id' => $request->input('courseCategories'),
-        ]);
-
-        // Добавление связи с подкатегориями (пример)
-//        $subcategories = $request->input('courseSubcategories');
-//        $course->subcategories()->attach($subcategories);
-        // Замените $subcategories на фактические идентификаторы подкатегорий
+        $this->courseService->createCourse($request->validated());
 
         return redirect()->route('courses.index')
             ->with('success', "Course Create Successfully");
@@ -91,15 +76,9 @@ class CourseController extends Controller
      * @param Course $course
      * @return Response
      */
-    public function show(Course $course)
+    public function show(Course $course): Response
     {
         $courseCategory = $course->courseCategory()->first();
-//        dd($course->category_id);
-//        dd($this->courseCategories);
-//        dd($course->courseSubcategories()
-//            ->where('user_id', auth()->id())
-////            ->where('category_id', $course->category_id)
-//            ->get());
 
         return Inertia::render('Courses/Show', [
             'course' => $course,
@@ -121,52 +100,16 @@ class CourseController extends Controller
     }
 
     /**
-     * Course editing
-     * @param Course $course
-     * @return Response
-     */
-//    public function edit(Course $course)
-//    {
-//        return Inertia::render('Courses/Edit', [
-//            'course' => $course,
-//            'courseTypes' => $this->courseTypes,
-//            'courseCategories' => $this->courseCategories,
-//            'courseSubcategories' => CourseSubcategory::query()
-//                ->where('user_id', auth()->id())
-//                ->orderBy('id')
-//                ->get(),
-//        ]);
-//    }
-
-    /**
      * Course update
-     * I was having problems with adding to favorites, which was removing the subcategory data from the pivot table.
-     * So I had to use this crutch:
-     * When editing a course, before updating, first get and save the current subcategory relationships.
-     * Then, after updating the master data, we retrieve the selected subcategories from the query again and merge
-     * them with the current subcategories.
-     * Now the sync() method will only synchronize new subcategories and add them to the existing ones, without
-     * deleting the ones that were already linked to the course.
-     *
      * @param Request $request
      * @param Course $course
-     * @return void
+     *
      */
-    public function update(Request $request, Course $course): void
+
+    public function update(CourseUpdateRequest $request, Course $course): void
     {
-//        $request->validate([
-//            'name' => 'required',
-//            'link' => 'required',
-//            'description' => 'required',
-//        ]);
 
-
-        $currentSubcategories = $course->courseSubcategories->pluck('id')->toArray();
-        $course->update($request->all());
-
-        $selectedSubcategories = $request->input('checkedSubcategory', []);
-        $updatedSubcategories = array_merge($currentSubcategories, $selectedSubcategories);
-        $course->courseSubcategories()->sync($updatedSubcategories);
+        $this->courseService->updateCourse($course, $request->validated());
     }
 
     /**
@@ -174,14 +117,12 @@ class CourseController extends Controller
      * @param Course $course
      * @return RedirectResponse
      */
-    public function destroy(Course $course)
+    public function destroy(Course $course): RedirectResponse
     {
-        $course->courseSubcategories()->detach();
-
-        $course->delete();
+        $this->courseService->destroyCourse($course);
 
         return redirect()
             ->route('courses.index')
-            ->with('warning', "Course $course->name deleted successfully");
+            ->with('warning', "Course \"$course->name\" deleted successfully");
     }
 }
