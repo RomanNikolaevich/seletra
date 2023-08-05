@@ -1,9 +1,9 @@
 <script setup>
 
-import {useForm} from "@inertiajs/vue3";
-import {computed, ref} from "vue";
+import {Link, useForm} from "@inertiajs/vue3";
+import {ref} from "vue";
 import EditButtonGroup from "@/Components/Dashboard/EditButtonGroup.vue";
-import { Link } from '@inertiajs/vue3'
+import InputError from "@/Components/Auth/InputError.vue";
 
 const props = defineProps({
     course: Object,
@@ -19,7 +19,6 @@ const selectedSubcategories = ref(
 );
 
 const form = useForm({
-    // categoryId: props.courseCategory.id = 1,
     checkedSubcategory: selectedSubcategories,
 });
 
@@ -43,15 +42,6 @@ const cancelEdit = () => {
     );
     isEditing.value = false;
 };
-
-// const filteredSubcategories = computed(() => {
-//     if (form.categoryId) {
-//         return props.subcategories.filter(
-//             (subcategory) => subcategory.category_id === parseInt(form.categoryId)
-//         );
-//     }
-//     return props.courseSubcategoriesAll;
-// });
 </script>
 
 <template>
@@ -83,7 +73,7 @@ const cancelEdit = () => {
             v-show="showEdit"
         />
     </div>
-<!--    {{ courseSubcategoriesChecked }}-->
+
     <form
         name="editSubcategory"
         @submit.prevent="submit"
@@ -112,6 +102,7 @@ const cancelEdit = () => {
                         </label>
                     </div>
                 </div>
+                <InputError class="mt-2" :message="form.errors.checkedSubcategory"/>
             </div>
             <Link
                 :href="route('subcategories.index')"

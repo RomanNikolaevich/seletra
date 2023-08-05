@@ -4,6 +4,7 @@ import {useForm} from "@inertiajs/vue3";
 import {ref} from "vue";
 import ShortDescription from "@/Components/Dashboard/ShortDescription.vue";
 import EditButtonGroup from "@/Components/Dashboard/EditButtonGroup.vue";
+import InputError from "@/Components/Auth/InputError.vue";
 
 const props = defineProps({
     course: Object,
@@ -66,9 +67,7 @@ const cancelEdit = () => {
         @submit.prevent="submit"
         class="flex"
         v-if="isEditing">
-        <div
-            class=" flex-1 bg-white h-full"
-        >
+        <div class=" flex-1 bg-white h-full">
             <div class="font-medium">
                     <textarea
                         id="description"
@@ -79,10 +78,7 @@ const cancelEdit = () => {
                         @keydown.esc="cancelEdit"
                     />
             </div>
-
-        </div>
-        <div class="flex-none">
-
+            <InputError class="mt-2" :message="form.errors.description"/>
         </div>
     </form>
 </template>

@@ -4,6 +4,7 @@ import {useForm} from "@inertiajs/vue3";
 import {ref} from "vue";
 import TextInput from "@/Components/Auth/TextInput.vue";
 import EditButtonGroup from "@/Components/Dashboard/EditButtonGroup.vue";
+import InputError from "@/Components/Auth/InputError.vue";
 
 const props = defineProps({
     course: Object,
@@ -81,9 +82,7 @@ const cancelEdit = () => {
                     @keydown.esc="cancelEdit"
                 />
             </div>
-        </div>
-        <div class="flex-none">
-
+            <InputError class="mt-2" :message="form.errors.link"/>
         </div>
     </form>
 </template>

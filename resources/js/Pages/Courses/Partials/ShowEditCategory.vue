@@ -3,6 +3,7 @@
 import {useForm} from "@inertiajs/vue3";
 import {onMounted, ref} from "vue";
 import EditButtonGroup from "@/Components/Dashboard/EditButtonGroup.vue";
+import InputError from "@/Components/Auth/InputError.vue";
 
 const props = defineProps({
     course: Object,
@@ -87,6 +88,7 @@ onMounted(() => {
                     </option>
                 </select>
             </div>
+            <InputError class="mt-2" :message="form.errors.category_id" />
         </div>
     </form>
 </template>
