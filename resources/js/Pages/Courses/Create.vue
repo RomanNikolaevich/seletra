@@ -16,8 +16,10 @@ const form = useForm({
     name: '',
     link: '',
     description: '',
-    courseTypes: '',
-    courseCategories: '',
+    type_id: '',
+    category_id: '',
+    user_id: '',
+
 });
 
 const submit = () => {
@@ -56,6 +58,7 @@ const submit = () => {
                 />
 
                 <InputError class="mt-2" :message="form.errors.name"/>
+                <InputError class="mt-2" :message="form.errors.user_id"/>
             </div>
 
             <!--Link -->
@@ -67,8 +70,7 @@ const submit = () => {
                     type="text"
                     class="mt-1 block w-full"
                     v-model="form.link"
-                    required
-                    autocomplete=""
+
                 />
 
                 <InputError class="mt-2" :message="form.errors.link"/>
@@ -95,7 +97,7 @@ const submit = () => {
                 <select id="courseTypes"
                         name="courseTypes"
                         class="w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
-                        v-model="form.courseTypes"
+                        v-model="form.type_id"
                         required
                 >
                     <option disabled selected value="">Choose course type</option>
@@ -106,6 +108,7 @@ const submit = () => {
                         {{ type.name_en }}
                     </option>
                 </select>
+                <InputError class="mt-2" :message="form.errors.type_id"/>
             </div>
 
             <!--Categories-->
@@ -115,7 +118,7 @@ const submit = () => {
                 <select id="courseCategories"
                         name="courseCategories"
                         class="w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
-                        v-model="form.courseCategories"
+                        v-model="form.category_id"
                         required
                 >
                     <option disabled selected value="">Choose course category</option>
@@ -126,6 +129,7 @@ const submit = () => {
                         {{ category.name_en }}
                     </option>
                 </select>
+                <InputError class="mt-2" :message="form.errors.category_id" />
             </div>
 
             <!--button -->
