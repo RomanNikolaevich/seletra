@@ -1,5 +1,5 @@
 #local dev
-FROM php:8.2-fpm
+FROM php:8.3-fpm
 
 ARG WWW_USER
 ARG WWW_GROUP

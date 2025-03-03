@@ -4,7 +4,6 @@ import '../css/app.css';
 import {createApp, h} from 'vue';
 import {createInertiaApp} from '@inertiajs/vue3';
 import {resolvePageComponent} from 'laravel-vite-plugin/inertia-helpers';
-import {ZiggyVue} from '../../vendor/tightenco/ziggy/dist/vue.m';
 import {library} from '@fortawesome/fontawesome-svg-core'
 import {FontAwesomeIcon} from '@fortawesome/vue-fontawesome'
 import {
@@ -35,6 +34,8 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 import {faComments, faNoteSticky, faSquareMinus, faSquarePlus, faHeart as faHeartRegular} from "@fortawesome/free-regular-svg-icons";
 import {faYoutube } from "@fortawesome/free-brands-svg-icons";
+import {ZiggyVue} from "ziggy-js";
+import {Ziggy} from "@/ziggy.js";
 
 /* add icons to the library */
 library.add(faPlay, faStop, faPenToSquare, faChalkboardUser, faLaptopFile, faMobileScreen, faMicrophone, faYoutube,
