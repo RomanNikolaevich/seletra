@@ -1,0 +1,48 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+    font-family: 'Roca de Escama';
+    src: url('/public/fonts/Roca de Escama.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Wobblezz Regular';
+    src: url('/public/fonts/wobblezz.ttf') format('ttf');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Belkin Extra Bold';
+    src: url('/public/fonts/belkin-2.ttf') format('ttf');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Miago';
+    src: url('/public/fonts/miago.ttf') format('ttf');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@layer utilities {
+    .font-roca {
+        font-family: 'Roca de Escama', sans-serif;
+    }
+
+    .font-wobblezz {
+        font-family: 'Wobblezz Regular', sans-serif;
+    }
+
+    .font-belkin {
+        font-family: 'Belkin Extra Bold', sans-serif;
+    }
+
+    .font-miago {
+        font-family: 'Miago', sans-serif;
+    }
+}
